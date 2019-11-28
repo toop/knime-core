@@ -286,7 +286,7 @@ public final class MetaNodeDialogPane extends NodeDialogPane {
                 final String parameterName = SubNodeContainer.getDialogNodeParameterName(dialogNode, e.getKey());
                 try {
                     NodeSettingsRO subSettings = settings.getNodeSettings(parameterName);
-                    nodeValue.loadFromNodeSettingsInDialog(subSettings);
+                    nodeValue.loadFromNodeSettingsInDialog(subSettings, getCredentialsProvider());
                     final DialogNodePanel dialogNodePanel = m_dialogNodePanels.get(e.getKey());
                     dialogNodePanel.loadNodeValue(nodeValue);
                 } catch (InvalidSettingsException ex) {

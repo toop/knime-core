@@ -52,6 +52,7 @@ import javax.json.JsonValue;
 import org.knime.core.node.InvalidSettingsException;
 import org.knime.core.node.NodeSettingsRO;
 import org.knime.core.node.NodeSettingsWO;
+import org.knime.core.node.workflow.CredentialsProvider;
 
 /**
  *
@@ -75,6 +76,16 @@ public interface DialogNodeValue {
      * @param settings
      */
     public abstract void loadFromNodeSettingsInDialog(final NodeSettingsRO settings);
+
+    /**
+     * @param settings
+     * @param credentialProvider
+     * @since 4.1
+     */
+    public default void loadFromNodeSettingsInDialog(final NodeSettingsRO settings,
+        final CredentialsProvider credentialProvider) {
+        loadFromNodeSettingsInDialog(settings);
+    }
 
     /** Parses the value from command line - default implement will just fail as 'complex' nodes such as the column
      * filter cannot be parameterized via commandline. Simple nodes (integer &amp; string input, ...) will just parse

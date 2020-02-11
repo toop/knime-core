@@ -1236,7 +1236,10 @@ public final class FileUtil {
             throw new InvalidPathException("", "Empty path");
         }
         try {
-            return new URL(path.replace(" ", "%20")); // replacement of spaces is a fallback only
+            // replacement of spaces is a fallback only
+            // we have to escape hash signs and question marks, since they are reserved special characters
+            // see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Generic_syntax and AP-13670
+            return new URL(path.replace(" ", "%20").replace("#", "%23").replace("?", "%3F"));
         } catch (MalformedURLException ex) {
             return Paths.get(path).toAbsolutePath().toUri().toURL();
         }
